@@ -23,8 +23,8 @@ postgresql:
   ## Set to false if bringing your own PostgreSQL.
   ##
   enabled: true
-  postgresUser: pactbroker
-  postgresPassword: pactbroker
+  postgresUser: postgres
+  postgresPassword: postgres
   postgresDatabase: pactbroker
 
   persistence:

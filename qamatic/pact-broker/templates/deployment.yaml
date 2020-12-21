@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
@@ -7,6 +7,9 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "fullname" . }}
   template:
     metadata:
       labels:
@@ -31,10 +34,12 @@ spec:
             - name: PACT_BROKER_DATABASE_USERNAME
               value: {{ .Values.postgresql.postgresUser }}
             - name: PACT_BROKER_DATABASE_PASSWORD
-              value: {{ .Values.postgresql.postgresPassword }}             
+              valueFrom:
+                secretKeyRef:
+                  key: postgresql-password
+                  name: my-postgresql           
             - name: PACT_BROKER_PORT 
-              value: "9292"    
-              
+              value: "9292"
           livenessProbe:
             httpGet:
               path: {{ .Values.probePath }}
