@@ -37,7 +37,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: postgresql-password
-                  name: my-postgresql           
+                  name: {{ .Release.Name }}-postgresql           
             - name: PACT_BROKER_PORT 
               value: "9292"
           livenessProbe:
