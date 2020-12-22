@@ -1,3 +1,8 @@
+global:
+  postgresql:
+    postgresqlPostgresPassword: password
+    postgresqlPassword: password
+
 replicaCount: 1
 
 image:
